@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\Http",
+    "\\app\\Http\\Controllers",
+    "\\app\\Models",
+    "\\database",
+    "\\database\\migrations"
+  ],
+  "SelectedNode": "\\database\\migrations\\2021_04_20_091835_create_categories_table.php",
+  "PreviewInSolutionExplorer": false
+}
