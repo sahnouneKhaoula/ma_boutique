@@ -15,8 +15,7 @@ class CreateCommandesTable extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->string('reference',20);
-            //->unique()->comment('le numero de la facture');
+            $table->string('reference',20)->unique()->comment('le numero de la facture');
             $table->decimal('total',8,2);
             $table->string('adresse_de_livraison');
             $table->foreignId('user_id')->constrained('users');

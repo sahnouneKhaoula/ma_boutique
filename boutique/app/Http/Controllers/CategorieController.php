@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Categorie;
 
 class CategorieController extends Controller
 {
@@ -14,6 +15,8 @@ class CategorieController extends Controller
     public function index()
     {
         //
+        $categories = Categorie::all();
+         return view('categories.index')->with('categories',$categories);
     }
 
     /**
@@ -24,6 +27,7 @@ class CategorieController extends Controller
     public function create()
     {
         //
+      return view('categories.create');
     }
 
     /**
@@ -35,6 +39,17 @@ class CategorieController extends Controller
     public function store(Request $request)
     {
         //
+         $request->validate([
+            'nom' => 'required|unique:categories'
+        ]);
+
+        $categorie = new Categorie();
+
+        $categorie->nom = $request->nom;
+
+        $categorie->save();
+
+        return redirect()->route('categories.index')->with('message','Categorie enregistrée');
     }
 
     /**
@@ -46,6 +61,8 @@ class CategorieController extends Controller
     public function show($id)
     {
         //
+        $categorie = Categorie::find($id);
+        return view('categories.show')->with('categorie',$categorie);
     }
 
     /**
@@ -57,6 +74,9 @@ class CategorieController extends Controller
     public function edit($id)
     {
         //
+        
+         $categorie = Categorie::find($id);
+         return view('categories.edit')->with('categorie',$categorie);
     }
 
     /**
@@ -69,6 +89,10 @@ class CategorieController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $categorie = Categorie::find($id);
+        $categorie->nom = $request->nom;
+        $categorie->save();
+        return redirect()->route('categories.index')->with('message','Categorie modifiée');
     }
 
     /**
@@ -79,6 +103,8 @@ class CategorieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categorie = Categorie::find($id);
+        $categorie->delete();
+        return redirect()->route('categories.index')->with('messagedelete','Categorie supprimée');
     }
 }

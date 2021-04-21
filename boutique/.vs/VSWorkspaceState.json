@@ -6,7 +6,11 @@
     "\\app\\Http\\Controllers",
     "\\app\\Models",
     "\\database",
-    "\\database\\migrations"
+    "\\database\\migrations",
+    "\\resources",
+    "\\resources\\views",
+    "\\resources\\views\\categories",
+    "\\resources\\views\\parents"
   ],
   "SelectedNode": "\\database\\migrations\\2021_04_20_091835_create_categories_table.php",
   "PreviewInSolutionExplorer": false

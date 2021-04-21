@@ -16,7 +16,7 @@ class CreateProduitsTable extends Migration
         Schema::create('produits', function (Blueprint $table) {
             $table->id();
             $table->string('nom',100);
-            $table->longText('description')->nullable();
+            $table->longText('description')->nullable();//le champs peut-etre null
             $table->string('image');
             $table->decimal('prix',8,2);
             $table->foreignId('categorie_id')->constrained('categories');
