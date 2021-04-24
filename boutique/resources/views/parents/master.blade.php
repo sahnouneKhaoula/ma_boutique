@@ -19,7 +19,7 @@
         <a class="nav-link" href="#">Acceuil <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Produits</a>
+        <a class="nav-link" href="{{ route('produits.index') }}">Produits</a>
       </li>
       
       <li class="nav-item">

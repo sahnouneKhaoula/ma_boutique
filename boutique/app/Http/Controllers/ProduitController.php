@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produit;
+use App\Models\Categorie;
 
 class ProduitController extends Controller
 {
@@ -14,6 +16,9 @@ class ProduitController extends Controller
     public function index()
     {
         //
+        $produits = Produit::orderBy('id','DESC')->get();
+        
+        return view('produits.index',compact('produits'));
     }
 
     /**
@@ -23,7 +28,8 @@ class ProduitController extends Controller
      */
     public function create()
     {
-        //
+       $categories = Categorie::all();
+       return view('Produits.create',compact('categories'));
     }
 
     /**
@@ -34,7 +40,24 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+      $image = $request->file('image');
+
+      $nomimage = 'produit'.time().uniqid().'.'.$image->getClientOriginalExtension(); // pour récuperer l'éxtention du fichier
+
+       //$image->storeAS('imageproduits',$nomimage);
+       //$path = $image->store('public/imageproduits',$nomimage);
+        $request->image->move(public_path('imageproduits'), $nomimage);
+        $produit = new Produit();
+
+        $produit->nom = $request->nom; 
+        $produit->description = $request->description; 
+        $produit->image = $nomimage; 
+        $produit->prix = $request->prix; 
+        $produit->categorie_id = $request->categorie; 
+        $produit->save();
+
+        return redirect()->route('produits.index');
     }
 
     /**
@@ -45,7 +68,8 @@ class ProduitController extends Controller
      */
     public function show($id)
     {
-        //
+        $produit = Produit::find($id);
+        return view('produits.show',compact('produit'));
     }
 
     /**
@@ -56,7 +80,8 @@ class ProduitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produit = produit::find($id);
+         return view('produits.edit')->with('produit',$produit);
     }
 
     /**
@@ -68,7 +93,12 @@ class ProduitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $produit = Produit::find($id);
+         $produit->nom = $request->nom;
+         $produit->description = $request->description; 
+         $produit->prix = $request->prix; 
+         $produit->save();
+         return redirect()->route('produits.index')->with('message','Produit modifiée');
     }
 
     /**
@@ -79,6 +109,15 @@ class ProduitController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        $produit = Produit::find($id);
+        
+        $image_path = 'imageproduits/'.$produit->image;  // Value is not URL but directory file path
+        if (file_exists($image_path)) {
+
+       @unlink($image_path);
+
+   }
+       $produit->delete();
+        return redirect()->route('produits.index')->with('messagedelete','Produit supprimée');  
+}
 }
