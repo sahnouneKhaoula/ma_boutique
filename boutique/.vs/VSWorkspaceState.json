@@ -9,9 +9,9 @@
     "\\database\\migrations",
     "\\resources",
     "\\resources\\views",
-    "\\resources\\views\\categories",
-    "\\resources\\views\\parents"
+    "\\resources\\views\\auth",
+    "\\resources\\views\\produits"
   ],
-  "SelectedNode": "\\database\\migrations\\2021_04_20_091835_create_categories_table.php",
+  "SelectedNode": "\\resources\\views\\produits\\index.blade.php",
   "PreviewInSolutionExplorer": false
 }

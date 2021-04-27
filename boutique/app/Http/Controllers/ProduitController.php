@@ -120,4 +120,12 @@ class ProduitController extends Controller
        $produit->delete();
         return redirect()->route('produits.index')->with('messagedelete','Produit supprimée');  
 }
+
+ public function detailproduit($id)
+    {
+        $produit = Produit::find($id);
+
+        return view('detailproduit')->with('produit',$produit);
+    }
 }
+

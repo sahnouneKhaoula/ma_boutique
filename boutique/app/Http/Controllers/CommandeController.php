@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
+//use App\Models\CommandeProduit;
+use App\Models\Commande;
 
 use Illuminate\Http\Request;
 
@@ -23,7 +26,7 @@ class CommandeController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,7 +37,11 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    //return "rrrrrrr";
+        // return redirect()->route('welcome');
+       
+
+        
     }
 
     /**
@@ -55,7 +62,21 @@ class CommandeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+
     {
+        $commande = new Commande();
+        
+        $index = rand(0, 99999);
+        $user = User::find($id);
+        $ref=$user->id.'.'.$index; 
+        $commande->reference = $ref; 
+        $commande->adresse_de_livraison = $user->adresse;
+        $commande->user_id = $user->id;
+        $commande->total=0;
+        $commande->save();
+        return redirect()->route('welcome');
+        //return $ref;
+       
         //
     }
 
